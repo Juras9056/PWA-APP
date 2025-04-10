@@ -1,13 +1,41 @@
-self.addEventListener('install', (event) => {
-    console.log('Service Worker: Zainstalowany');
-    self.skipWaiting();
-  });
-  
-  self.addEventListener('activate', (event) => {
-    console.log('Service Worker: Aktywny');
-  });
-  
-  self.addEventListener('fetch', (event) => {
-    console.log('Service Worker: Przechwycono żądanie do', event.request.url);
-  });
-  
+// sw.js
+
+
+
+self.addEventListener('install', function(event) {
+
+    event.waitUntil(
+
+        caches.open('my-cache').then(function(cache) {
+
+            return cache.addAll([
+
+                '/',
+
+                '/index.html',
+
+                '/script.js',
+
+                '/style.css'
+
+            ]);
+
+        })
+
+    );
+
+});
+
+self.addEventListener('fetch', function(event) {
+
+    event.respondWith(
+
+        caches.match(event.request).then(function(response) {
+
+            return response || fetch(event.request);
+
+        })
+
+    );
+
+});
