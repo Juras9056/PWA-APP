@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moja PWA</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Witaj w mojej Progressive Web App!</h1>
+  <button onclick="klik()">Kliknij mnie</button>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('✅ Service Worker zarejestrowany:', reg))
+        .catch(err => console.error('❌ Błąd SW:', err));
+    }
+  </script>
+</body>
+</html>
